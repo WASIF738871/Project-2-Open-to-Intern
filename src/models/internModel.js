@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 let ObjectId = mongoose.Schema.Types.ObjectId;
-const InternSchema = new mongoose.Schema(
+const internSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -30,8 +30,9 @@ const InternSchema = new mongoose.Schema(
     isDeleted: {
       type: Boolean,
       default: false
-    },
-  },
-  { timestamps: true }
-);
-module.exports = mongoose.model("Intern", InternSchema);
+    }
+    
+  },{ timestamps: true });
+
+
+module.exports = mongoose.model("Intern", internSchema);

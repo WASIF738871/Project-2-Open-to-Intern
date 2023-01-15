@@ -1,25 +1,19 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const route = require('./route/route')
+const express = require('express');
+const mongoose = require('mongoose');
 
-const app = express()
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
+require('dotenv').config();
+const { PORT, mongoDB_string } = process.env;
 
-const url = "mongodb+srv://group41Database:fxvFyAoe7VLOVLFs@cluster0.v8xey4l.mongodb.net/group41Database"
-const port = process.env.PORT || 3000
+const route = require('./route/route');
 
-mongoose.connect(url,{useNewUrlParser:true})
-.then(()=>console.log("mongoDB is connected"))
-.catch((error)=>console.log(error))
+const app = express();
 
-app.use('/',route)
+app.use(express.json());
+app.use('/', route);
+mongoose.connect(mongoDB_string)
+    .then(() => console.log("mongoDB is connected"))
+    .catch((error) => console.log(error));
 
-app.listen(port,function(){
-    console.log("express app is running on PORT"+(port))
+app.listen(PORT, () => {
+    console.log(`server is running at http://localhost:${PORT}`)
 })
-
-
-
-
